@@ -1,7 +1,7 @@
-version: '3.4'
+version: '3.7'
 
 services:
-  sqldata:
+  pocsqldata:
       restart: always
       environment:
           - POSTGRES_USER=postgres
@@ -15,14 +15,14 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
     ports:
-      - "45001:80"
+      - "42001:80"
 
-  product-api:
+  recipe-api:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
     ports:
-      - "45002:80"
+      - "42002:80"
 
- volumes:
+volumes:
   poc-sqldata:
     external: true

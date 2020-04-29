@@ -1,22 +1,22 @@
-version: '3.4'
+version: '3.7'
 
 services:
-  sqldata:
+  pocsqldata:
     image: postgres
 
-  product.api:
+  product-api:
     image: product-api:${TAG:-latest}
     build:
       context: .
       dockerfile: Services/Product/Product.API/Dockerfile
     depends_on:
-      - sqldata
+      - pocsqldata
 
-  recipe.api:
+  recipe-api:
     image: recipe-api:${TAG:-latest}
     build:
       context: .
       dockerfile: Services/Recipe/Recipe.API/Dockerfile
     depends_on:
-      - sqldata
+      - pocsqldata
 
