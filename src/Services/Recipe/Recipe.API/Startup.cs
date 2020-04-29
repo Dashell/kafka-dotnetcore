@@ -35,6 +35,7 @@ namespace Recipe.API
 
             services.AddAutoMapper(Assembly.Load(typeof(Startup).Assembly.GetName().Name!));
             services.AddSwagger("Recipe.API");
+            services.AddDependencies(appSettings);
 
             services.AddHealthChecks();
             services.AddHostedService<MigratorHostedService>();

@@ -14,6 +14,15 @@ namespace Recipe.API.Infrastructure
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Models.RecipeProduct>()
+             .HasKey(rp => new { rp.RecipeId, rp.ProductId });
+            modelBuilder.Entity<Models.RecipeProduct>()
+                .HasOne(rp => rp.Recipe)
+                .WithMany(r => r.Products)
+                .HasForeignKey(rp => rp.RecipeId);
         }
+        public DbSet<Models.Recipe> Recipes { get; set; }
+
     }
 }

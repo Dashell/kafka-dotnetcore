@@ -35,6 +35,7 @@ namespace Product.API
 
             services.AddAutoMapper(Assembly.Load(typeof(Startup).Assembly.GetName().Name!));
             services.AddSwagger("Product.API");
+            services.AddDependencies(appSettings);
 
             services.AddHealthChecks();
             services.AddHostedService<MigratorHostedService>();

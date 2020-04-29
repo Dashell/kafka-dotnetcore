@@ -15,5 +15,8 @@ namespace Product.API.Infrastructure
         {
             base.OnModelCreating(modelBuilder);
         }
+
+        public DbSet<Models.Product> Products { get; set; }
+
     }
 }
