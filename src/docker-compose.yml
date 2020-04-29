@@ -1,0 +1,22 @@
+version: '3.4'
+
+services:
+  sqldata:
+    image: postgres
+
+  product.api:
+    image: product-api:${TAG:-latest}
+    build:
+      context: .
+      dockerfile: Services/Product/Product.API/Dockerfile
+    depends_on:
+      - sqldata
+
+  recipe.api:
+    image: recipe-api:${TAG:-latest}
+    build:
+      context: .
+      dockerfile: Services/Recipe/Recipe.API/Dockerfile
+    depends_on:
+      - sqldata
+

@@ -1,0 +1,28 @@
+version: '3.4'
+
+services:
+  sqldata:
+      restart: always
+      environment:
+          - POSTGRES_USER=postgres
+          - POSTGRES_PASSWORD=docker
+      ports:
+        - "5432:5432"
+      volumes:
+        - poc-sqldata:/var/lib/postgresql/data
+
+  product-api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "45001:80"
+
+  product-api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "45002:80"
+
+ volumes:
+  poc-sqldata:
+    external: true
