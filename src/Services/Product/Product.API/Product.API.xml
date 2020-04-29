@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Product.API</name>
+    </assembly>
+    <members>
+        <member name="P:Product.API.Infrastructure.Filters.HttpGlobalExceptionFilter.ErrorResult.Error">
+            <summary>
+            Contenu de l'erreur
+            </summary>
+        </member>
+        <member name="P:Product.API.Infrastructure.Filters.HttpGlobalExceptionFilter.ErrorResult.ErrorCode">
+            <summary>
+            Code de l'erreur
+            </summary>
+        </member>
+    </members>
+</doc>

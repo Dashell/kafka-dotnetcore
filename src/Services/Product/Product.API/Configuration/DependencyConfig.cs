@@ -1,6 +1,8 @@
 ﻿using Product.API.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Confluent.Kafka;
+using Product.API.Kafka;
 
 namespace Product.API.Configuration
 {
@@ -10,6 +12,10 @@ namespace Product.API.Configuration
         {
             #region Database
             services.AddDbContext<ProductContext>(options => options.UseLazyLoadingProxies().UseNpgsql(appSettings.DbConnection).UseSnakeCaseNamingConvention());
+            #endregion
+
+            #region Kafka Producer
+            services.AddTransient<IKafkaProducer, KafkaProducer>();
             #endregion
 
             #region Accessors
