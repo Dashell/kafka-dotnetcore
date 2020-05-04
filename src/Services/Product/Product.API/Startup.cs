@@ -47,7 +47,7 @@ namespace Product.API
             mapper.ConfigurationProvider.AssertConfigurationIsValid();
 
             app.UseDeveloperExceptionPage();
-            app.UseSwaggerConfig("Product.API", "", "");
+            app.UseSwaggerConfig("Product.API", "", "http");
             
 
             app.UseRouting();

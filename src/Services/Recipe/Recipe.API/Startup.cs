@@ -7,6 +7,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using System.Reflection;
+using System.Threading.Tasks;
+using Recipe.API.Kafka;
 
 namespace Recipe.API
 {
@@ -40,6 +42,8 @@ namespace Recipe.API
             services.AddHealthChecks();
             services.AddHostedService<MigratorHostedService>();
             services.AddHttpContextAccessor();
+
+            Task.Run(() => new Consumer().Execute() );
         }
 
         public void Configure(IApplicationBuilder app, IOptions<AppSettings> appSettings, IMapper mapper)

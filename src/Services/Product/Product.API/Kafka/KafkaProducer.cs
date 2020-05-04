@@ -15,9 +15,9 @@ namespace Product.API.Kafka
             this.appSettings = appSettings.Value;
         }
 
-        public async Task SendMessage()
+        public async Task SendMessage(string message)
         {
-            var config = new ProducerConfig { BootstrapServers = "localhost:9092" };
+            var config = new ProducerConfig { BootstrapServers = "kafka" };
 
             // If serializers are not specified, default serializers from
             // `Confluent.Kafka.Serializers` will be automatically used where
@@ -26,7 +26,7 @@ namespace Product.API.Kafka
             {
                 try
                 {
-                    var dr = await p.ProduceAsync("test-topic", new Message<Null, string> { Value = "test" });
+                    var dr = await p.ProduceAsync("delete-product", new Message<Null, string> { Value = message });
                     Console.WriteLine($"Delivered '{dr.Value}' to '{dr.TopicPartitionOffset}'");
                 }
                 catch (ProduceException<Null, string> e)

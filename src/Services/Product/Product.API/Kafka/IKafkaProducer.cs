@@ -7,6 +7,6 @@ namespace Product.API.Kafka
 {
     public interface IKafkaProducer
     {
-        Task SendMessage();
+        Task SendMessage(string message);
     }
 }
