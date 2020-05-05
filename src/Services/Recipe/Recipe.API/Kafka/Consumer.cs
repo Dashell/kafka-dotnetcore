@@ -1,17 +1,27 @@
 ﻿using Confluent.Kafka;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
+using Recipe.API.Configuration;
 using System;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace Recipe.API.Kafka
 {
-    public class Consumer
+    public class Consumer : IHostedService
     {
-        public void Execute()
+        private readonly AppSettings appSettings;
+
+        public Consumer(IOptions<AppSettings> appSettings)
+        {
+            this.appSettings = appSettings.Value;
+        }
+        public async Task StartAsync(CancellationToken cancellationToken)
         {
             ConsumerConfig config = new ConsumerConfig
             {
-                GroupId = "test-consumer-group",
+                GroupId = appSettings.ConsumerGroup,
                 BootstrapServers = "kafka",
                 // Note: The AutoOffsetReset property determines the start offset in the event
                 // there are not yet any committed offsets for the consumer group for the
@@ -63,8 +73,8 @@ namespace Recipe.API.Kafka
                                 continue;
                             }
 
-                            Console.WriteLine($"Received message at {consumeResult.TopicPartitionOffset}: {consumeResult.Message.Value}");
-
+                            Console.WriteLine($"Received message at {consumeResult.TopicPartitionOffset}: {consumeResult.Message.Value}, with group : {appSettings.ConsumerGroup}");
+                            Thread.Sleep(30000);
                             if (consumeResult.Offset % commitPeriod == 0)
                             {
                                 // The Commit method sends a "commit offsets" request to the Kafka
@@ -95,6 +105,11 @@ namespace Recipe.API.Kafka
                     consumer.Close();
                 }
             }
+        }
+
+        public Task StopAsync(CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -3,7 +3,7 @@
 namespace Recipe.API.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("v1/[controller]")]
     public class RecipeController : ControllerBase
     {
         public RecipeController()
@@ -11,9 +11,9 @@ namespace Recipe.API.Controllers
         }
 
         [HttpGet]
-        public NoContentResult Get()
+        public string Test()
         {
-            return NoContent();
+            return "Ok";
         }
     }
 }

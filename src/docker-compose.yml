@@ -31,8 +31,29 @@ services:
       - pocsqldata
       - kafka
 
-  recipe-api:
-    image: recipe-api:${TAG:-latest}
+  recipe-api-1:
+    restart: always
+    image: recipe-api-1:${TAG:-latest}
+    build:
+      context: .
+      dockerfile: Services/Recipe/Recipe.API/Dockerfile
+    depends_on:
+      - pocsqldata
+      - kafka
+
+  recipe-api-2:
+    restart: always
+    image: recipe-api-2:${TAG:-latest}
+    build:
+      context: .
+      dockerfile: Services/Recipe/Recipe.API/Dockerfile
+    depends_on:
+      - pocsqldata
+      - kafka
+
+  recipe-api-3:
+    restart: always
+    image: recipe-api-3:${TAG:-latest}
     build:
       context: .
       dockerfile: Services/Recipe/Recipe.API/Dockerfile

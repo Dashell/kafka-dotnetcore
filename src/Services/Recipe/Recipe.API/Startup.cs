@@ -42,8 +42,8 @@ namespace Recipe.API
             services.AddHealthChecks();
             services.AddHostedService<MigratorHostedService>();
             services.AddHttpContextAccessor();
-
-            Task.Run(() => new Consumer().Execute() );
+            
+            //Task.Run(() => new Consumer().StartAsync(appSettings) );
         }
 
         public void Configure(IApplicationBuilder app, IOptions<AppSettings> appSettings, IMapper mapper)
