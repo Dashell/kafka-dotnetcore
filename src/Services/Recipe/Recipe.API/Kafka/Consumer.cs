@@ -22,7 +22,7 @@ namespace Recipe.API.Kafka
             ConsumerConfig config = new ConsumerConfig
             {
                 GroupId = appSettings.ConsumerGroup,
-                BootstrapServers = "kafka",
+                BootstrapServers = "kafka1, kafka2, kafka3",
                 // Note: The AutoOffsetReset property determines the start offset in the event
                 // there are not yet any committed offsets for the consumer group for the
                 // topic/partitions of interest. By default, offsets are committed

@@ -5,22 +5,82 @@ services:
     image: postgres
 
   zookeeper:
-    restart: always
-    image: wurstmeister/zookeeper
+    container_name: zookeeper
+    hostname: zookeeper
+    image: confluentinc/cp-zookeeper:5.1.0
     ports:
       - "2181:2181"
-  kafka:
-    restart: always
-    image: wurstmeister/kafka:0.10.2.0
+
+  kafka1:
+    container_name: kafka1
+    hostname: kafka1
+    image: confluentinc/cp-kafka:latest
     ports:
       - "9092:9092"
     environment:
-      KAFKA_ADVERTISED_HOST_NAME: 192.168.0.14
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://192.168.0.14:9092
-      KAFKA_CREATE_TOPICS: "delete-product:1:1"
-      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: localhost:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka1:9092
+    depends_on:
+      - zookeeper
+
+  kafka2:
+    container_name: kafka2
+    hostname: kafka2
+    image: confluentinc/cp-kafka:latest
+    ports:
+      - "9093:9092"
+    environment:
+      KAFKA_BROKER_ID: 2
+      KAFKA_ZOOKEEPER_CONNECT: localhost:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka2:9093
+    depends_on:
+      - zookeeper
+
+  kafka3:
+    container_name: kafka3
+    hostname: kafka3
+    image: confluentinc/cp-kafka:latest
+    ports:
+      - "9094:9092"
+    environment:
+      KAFKA_BROKER_ID: 3
+      KAFKA_ZOOKEEPER_CONNECT: localhost:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka3:9094
+    depends_on:
+      - zookeeper
+
+  kafdrop:
+    container_name: kafdrop
+    hostname: kafdrop
+    image: kavimaluskam/kafdrop
+    ports:
+      - "9000:9000"
+    environment:
+      ZK_HOSTS: "zookeeper:2181"
+      LISTEN: "9000"
+      SCHEMA_REGISTRY_URL: "http://schema_registry:8081"
+
+  schema_registry:
+    container_name: schema_registry
+    hostname: schema_registry
+    image: confluentinc/cp-schema-registry:5.1.0
+    ports:
+      - "8081:8081"
+    environment:
+      SCHEMA_REGISTRY_HOST_NAME: schema_registry
+      SCHEMA_REGISTRY_KAFKASTORE_CONNECTION_URL: "zookeeper:2181"
+      SCHEMA_REGISTRY_ACCESS_CONTROL_ALLOW_METHODS: "GET,POST,PUT,OPTIONS"
+      SCHEMA_REGISTRY_ACCESS_CONTROL_ALLOW_ORIGIN: "*"
+
+  schema_registry_ui:
+    container_name: schema_registry_ui
+    hostname: schema_registry_ui
+    image: landoop/schema-registry-ui
+    ports:
+      - "8082:8000"
+    environment:
+      SCHEMAREGISTRY_URL: "http://localhost:8081"
 
   product-api:
     image: product-api:${TAG:-latest}
@@ -29,35 +89,40 @@ services:
       dockerfile: Services/Product/Product.API/Dockerfile
     depends_on:
       - pocsqldata
-      - kafka
+      - kafka1
+      - kafka2
+      - kafka3
 
   recipe-api-1:
-    restart: always
     image: recipe-api-1:${TAG:-latest}
     build:
       context: .
       dockerfile: Services/Recipe/Recipe.API/Dockerfile
     depends_on:
       - pocsqldata
-      - kafka
+      - kafka1
+      - kafka2
+      - kafka3
 
   recipe-api-2:
-    restart: always
     image: recipe-api-2:${TAG:-latest}
     build:
       context: .
       dockerfile: Services/Recipe/Recipe.API/Dockerfile
     depends_on:
       - pocsqldata
-      - kafka
+      - kafka1
+      - kafka2
+      - kafka3
 
   recipe-api-3:
-    restart: always
     image: recipe-api-3:${TAG:-latest}
     build:
       context: .
       dockerfile: Services/Recipe/Recipe.API/Dockerfile
     depends_on:
       - pocsqldata
-      - kafka
+      - kafka1
+      - kafka2
+      - kafka3
 

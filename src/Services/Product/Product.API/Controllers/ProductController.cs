@@ -20,7 +20,6 @@ namespace Product.API.Controllers
         [HttpPost]
         public NoContentResult Post(string message)
         {
-            //Task.Run(() => new Consumer().Excecute());
             iKafkaProducer.SendMessage(message);
             return NoContent();
         }
