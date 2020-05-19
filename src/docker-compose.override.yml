@@ -15,28 +15,28 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
     ports:
-      - "40001:80"
+      - "50001:80"
 
   recipe-api-1:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - appSettings__consumerGroup=group1
     ports:
-      - "40002:80"
+      - "50002:80"
 
   recipe-api-2:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - appSettings__consumerGroup=group1
     ports:
-      - "40003:80"
+      - "50003:80"
 
   recipe-api-3:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - appSettings__consumerGroup=group2
     ports:
-      - "40004:80"
+      - "50004:80"
 
 volumes:
   poc-sqldata:

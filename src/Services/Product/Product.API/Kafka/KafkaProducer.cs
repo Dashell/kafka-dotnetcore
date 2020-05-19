@@ -17,7 +17,7 @@ namespace Product.API.Kafka
 
         public async Task SendMessage(string message)
         {
-            var config = new ProducerConfig { BootstrapServers = "kafka1, kafka2, kafka3" };
+            var config = new ProducerConfig { BootstrapServers = "kafka1:29092,kafka2:29093,kafka3:29094" };
 
             using var p = new ProducerBuilder<Null, string>(config).Build();
             try
