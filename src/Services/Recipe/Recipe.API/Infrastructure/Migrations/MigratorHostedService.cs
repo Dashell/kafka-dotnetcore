@@ -20,8 +20,14 @@ namespace Recipe.API.Infrastructure.Migrations
         {
             using IServiceScope scope = serviceProvider.CreateScope();
             RecipeContext repiceContext = scope.ServiceProvider.GetRequiredService<RecipeContext>();
+            try
+            {
+                await repiceContext.Database.MigrateAsync();
+            }
+            catch(Exception)
+            {
 
-            await repiceContext.Database.MigrateAsync();
+            }
         }
 
         public Task StopAsync(CancellationToken cancellationToken) => Task.CompletedTask;

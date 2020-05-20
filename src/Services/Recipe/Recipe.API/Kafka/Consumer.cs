@@ -1,4 +1,5 @@
 ﻿using Confluent.Kafka;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using Recipe.API.Configuration;
@@ -12,13 +13,12 @@ namespace Recipe.API.Kafka
     public class Consumer : IHostedService
     {
         private readonly AppSettings appSettings;
-        private readonly IRecipeRemover productRemover;
+        private readonly IRecipeRemover recipeRemover;
         private const string TOPIC_DELETE_PRODUCT = "delete-product";//TODO mettre dans un service common
-
-        public Consumer(IOptions<AppSettings> appSettings, IRecipeRemover productRemover)
+        public Consumer(IOptions<AppSettings> appSettings, IServiceScopeFactory services)
         {
             this.appSettings = appSettings.Value;
-            this.productRemover = productRemover;
+            this.recipeRemover = services.CreateScope().ServiceProvider.GetRequiredService<IRecipeRemover>();
         }
         public async Task StartAsync(CancellationToken cancellationToken)
         {
@@ -70,7 +70,7 @@ namespace Recipe.API.Kafka
                         
                         if(int.TryParse(consumeResult.Message.Value, out int productId))
                         {
-                            await productRemover.Execute(productId);
+                            await recipeRemover.Execute(productId);
                         }
                         else
                         {
@@ -109,9 +109,7 @@ namespace Recipe.API.Kafka
             }
         }
 
-        public Task StopAsync(CancellationToken cancellationToken)
-        {
-            throw new NotImplementedException();
-        }
+        public Task StopAsync(CancellationToken cancellationToken) => Task.CompletedTask;
+
     }
 }

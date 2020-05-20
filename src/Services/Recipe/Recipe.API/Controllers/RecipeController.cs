@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Recipe.API.UseCases.Interfcaces;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Recipe.API.Controllers
@@ -16,9 +17,9 @@ namespace Recipe.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<Models.Recipe>> Get()
+        public async Task<IEnumerable<dynamic>> Get()
         {
-            return await recipeFetcher.Execute();
+            return (await recipeFetcher.Execute()).Select(recipe => new { recipe.Id, recipe.Name });
         }
     }
 }

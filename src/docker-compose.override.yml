@@ -8,8 +8,6 @@ services:
           - POSTGRES_PASSWORD=docker
       ports:
         - "5432:5432"
-      volumes:
-        - poc-sqldata:/var/lib/postgresql/data
 
   product-api:
     environment:
@@ -38,6 +36,3 @@ services:
     ports:
       - "50004:80"
 
-volumes:
-  poc-sqldata:
-    external: true

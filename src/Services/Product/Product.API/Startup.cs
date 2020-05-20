@@ -42,7 +42,7 @@ namespace Product.API
             services.AddHttpContextAccessor();
         }
 
-        public void Configure(IApplicationBuilder app, IOptions<AppSettings> appSettings, IMapper mapper)
+        public void Configure(IApplicationBuilder app, IMapper mapper)
         {
             mapper.ConfigurationProvider.AssertConfigurationIsValid();
 

@@ -2,6 +2,7 @@
 using Product.API.Kafka;
 using Product.API.UseCases.Interfcaces;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Product.API.Controllers
@@ -27,9 +28,9 @@ namespace Product.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<Models.Product>> Get()
+        public async Task<IEnumerable<dynamic>> Get()
         {
-            return await productFetcher.Execute();
+            return (await productFetcher.Execute()).Select(product => new { product.Id, product.Name });
         }
     }
 }

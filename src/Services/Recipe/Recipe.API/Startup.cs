@@ -48,7 +48,7 @@ namespace Recipe.API
             mapper.ConfigurationProvider.AssertConfigurationIsValid();
 
             app.UseDeveloperExceptionPage();
-            app.UseSwaggerConfig("Recipe.API", "", "");
+            app.UseSwaggerConfig("Recipe.API", "", "http");
 
 
             app.UseRouting();

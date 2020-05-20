@@ -17,27 +17,27 @@ namespace Recipe.API.Infrastructure
             modelBuilder.Entity<Models.Recipe>().HasData(new List<Models.Recipe> { 
                 new Models.Recipe 
                 {
-                    Id = 0, 
+                    Id = 1, 
                     Name = "Poulet Curry"
                 },
                 new Models.Recipe
                 {
-                    Id = 1,
+                    Id = 2,
                     Name = "Poulet Tandory"
                 },
                 new Models.Recipe
                 {
-                    Id = 2,
+                    Id = 3,
                     Name = "Bo Boun"
                 },
                 new Models.Recipe
                 {
-                    Id = 3,
+                    Id = 4,
                     Name = "PokeBall Oignon free"
                 },
                 new Models.Recipe
                 {
-                    Id = 4,
+                    Id = 5,
                     Name = "MilkShake Bacon"
                 }
             });
@@ -53,53 +53,53 @@ namespace Recipe.API.Infrastructure
                 .HasData(new List<Models.RecipeProduct> {
                 new Models.RecipeProduct
                 {
-                    RecipeId = 0,
+                    RecipeId = 1,
                     ProductId = 1 //Poulet
                 },
                 new Models.RecipeProduct
                 {
-                    RecipeId = 0,
+                    RecipeId = 1,
                     ProductId = 2 //Curry
                 },
                 new Models.RecipeProduct
                 {
-                    RecipeId = 1,
+                    RecipeId = 2,
                     ProductId = 1 //Poulet
                 },
                 new Models.RecipeProduct
                 {
-                    RecipeId = 1,
+                    RecipeId = 2,
                     ProductId = 3 //Tandori
                 },
                 new Models.RecipeProduct
                 {
-                    RecipeId = 2,
+                    RecipeId = 3,
                     ProductId = 4 // Bo
                 },
                 new Models.RecipeProduct
                 {
-                    RecipeId = 2,
+                    RecipeId = 3,
                     ProductId = 5 // Boun
                 },
                 new Models.RecipeProduct
                 {
-                    RecipeId = 3,
+                    RecipeId = 4,
                     ProductId = 6 // Pokeball
                 },
                 new Models.RecipeProduct
                 {
-                    RecipeId = 3,
+                    RecipeId = 4,
                     ProductId = 7 // Pokeball
                 },
                 new Models.RecipeProduct
                 {
-                    RecipeId = 4,
+                    RecipeId = 5,
                     ProductId = 8 // Milk
                 },
 
                 new Models.RecipeProduct
                 {
-                    RecipeId = 4,
+                    RecipeId = 5,
                     ProductId = 9 // Bacon
                 }
             });
