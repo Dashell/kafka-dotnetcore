@@ -67,7 +67,8 @@ namespace Recipe.API.Kafka
                         }
 
                         Console.WriteLine($"Received message at {consumeResult.TopicPartitionOffset}: {consumeResult.Message.Value}, with group : {appSettings.ConsumerGroup}");
-                        
+                        //Slow down treatment for demonstrating the asynchronous fact
+                        Thread.Sleep(5000);
                         if(int.TryParse(consumeResult.Message.Value, out int productId))
                         {
                             await recipeRemover.Execute(productId);
