@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace Recipe.API.UseCases
 {
-    public class ProductRemover : IProductRemover
+    public class RecipeRemover : IRecipeRemover
     {
         private readonly IRecipeRepository iRecipeRepository;
-        public ProductRemover(IRecipeRepository iRecipeRepository)
+        public RecipeRemover(IRecipeRepository iRecipeRepository)
         {
             this.iRecipeRepository = iRecipeRepository;
         }

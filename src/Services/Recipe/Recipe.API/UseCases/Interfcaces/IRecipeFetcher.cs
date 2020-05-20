@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 
 namespace Recipe.API.UseCases.Interfcaces
 {
-    public interface IProductRemover
+    public interface IRecipeFetcher
     {
-        Task Execute(int productId);
+        Task<IEnumerable<Models.Recipe>> Execute();
     }
 }

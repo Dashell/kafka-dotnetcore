@@ -2,7 +2,7 @@
 
 namespace Product.API.Kafka
 {
-    public interface IKafkaProducer
+    public interface IProducer
     {
         Task SendDeleteProductMessage(int productId);
     }

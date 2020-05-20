@@ -9,8 +9,8 @@ namespace Product.API.UseCases
 {
     public class ProductRemover : IProductRemover
     {
-        private readonly IKafkaProducer iKafkaProducer;
-        public ProductRemover(IKafkaProducer iKafkaProducer)
+        private readonly IProducer iKafkaProducer;
+        public ProductRemover(IProducer iKafkaProducer)
         {
             this.iKafkaProducer = iKafkaProducer;
         }

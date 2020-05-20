@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace Product.API.Kafka
 {
-    public class KafkaProducer : IKafkaProducer
+    public class Producer : IProducer
     {
         private readonly AppSettings appSettings;
         private const string TOPIC_DELETE_PRODUCT = "delete-product";//TODO mettre dans un service common
 
-        public KafkaProducer(IOptions<AppSettings> appSettings)
+        public Producer(IOptions<AppSettings> appSettings)
         {
             this.appSettings = appSettings.Value;
         }

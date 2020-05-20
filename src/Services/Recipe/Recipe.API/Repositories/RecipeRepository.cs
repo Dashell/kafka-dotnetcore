@@ -1,4 +1,5 @@
-﻿using Recipe.API.Infrastructure;
+﻿using Microsoft.EntityFrameworkCore;
+using Recipe.API.Infrastructure;
 using Recipe.API.Kafka;
 using Recipe.API.Repositories.Interfcaces;
 using Recipe.API.UseCases.Interfcaces;
@@ -16,6 +17,11 @@ namespace Recipe.API.Repositories
         public RecipeRepository(RecipeContext context)
         {
             this.context = context;
+        }
+
+        public async Task<IEnumerable<Models.Recipe>> GetAll()
+        {
+            return await context.Recipes.ToListAsync();
         }
 
         public async Task RemoveRecipeWithProduct(int productId)

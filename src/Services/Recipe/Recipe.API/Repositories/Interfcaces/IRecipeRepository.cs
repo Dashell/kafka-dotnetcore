@@ -8,5 +8,6 @@ namespace Recipe.API.Repositories.Interfcaces
     public interface IRecipeRepository
     {
         Task RemoveRecipeWithProduct(int productId);
+        Task<IEnumerable<Models.Recipe>> GetAll();
     }
 }

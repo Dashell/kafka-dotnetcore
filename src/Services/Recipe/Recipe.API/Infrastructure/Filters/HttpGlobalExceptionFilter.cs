@@ -10,12 +10,10 @@ namespace Recipe.API.Infrastructure.Filters
 {
     public class HttpGlobalExceptionFilter : IExceptionFilter
     {
-        private readonly AppSettings appSettings;
         private readonly ILogger<HttpGlobalExceptionFilter> iLogger;
 
-        public HttpGlobalExceptionFilter(IOptions<AppSettings> appSettings, ILogger<HttpGlobalExceptionFilter> iLogger)
+        public HttpGlobalExceptionFilter(ILogger<HttpGlobalExceptionFilter> iLogger)
         {
-            this.appSettings = appSettings.Value;
             this.iLogger = iLogger;
         }
 

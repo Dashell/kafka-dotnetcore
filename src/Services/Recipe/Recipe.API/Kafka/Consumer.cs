@@ -12,10 +12,10 @@ namespace Recipe.API.Kafka
     public class Consumer : IHostedService
     {
         private readonly AppSettings appSettings;
-        private readonly IProductRemover productRemover;
+        private readonly IRecipeRemover productRemover;
         private const string TOPIC_DELETE_PRODUCT = "delete-product";//TODO mettre dans un service common
 
-        public Consumer(IOptions<AppSettings> appSettings, IProductRemover productRemover)
+        public Consumer(IOptions<AppSettings> appSettings, IRecipeRemover productRemover)
         {
             this.appSettings = appSettings.Value;
             this.productRemover = productRemover;

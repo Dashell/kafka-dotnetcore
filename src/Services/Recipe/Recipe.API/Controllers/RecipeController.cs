@@ -1,4 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Recipe.API.UseCases.Interfcaces;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Recipe.API.Controllers
 {
@@ -6,14 +9,16 @@ namespace Recipe.API.Controllers
     [Route("v1/[controller]")]
     public class RecipeController : ControllerBase
     {
-        public RecipeController()
+        private readonly IRecipeFetcher recipeFetcher;
+        public RecipeController(IRecipeFetcher recipeFetcher)
         {
+            this.recipeFetcher = recipeFetcher;
         }
 
         [HttpGet]
-        public string Test()
+        public async Task<IEnumerable<Models.Recipe>> Get()
         {
-            return "Ok";
+            return await recipeFetcher.Execute();
         }
     }
 }
