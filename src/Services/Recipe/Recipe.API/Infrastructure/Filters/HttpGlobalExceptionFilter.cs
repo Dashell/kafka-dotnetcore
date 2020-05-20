@@ -1,9 +1,9 @@
-using Recipe.API.Configuration;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Recipe.API.Configuration;
 using System.Net;
 
 namespace Recipe.API.Infrastructure.Filters

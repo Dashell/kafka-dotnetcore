@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 
 namespace Recipe.API.Infrastructure
 {
@@ -14,6 +15,8 @@ namespace Recipe.API.Infrastructure
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Models.Recipe>().HasData(new List<Models.Recipe> { new Models.Recipe { Id = 0,Name = "Recette 1" } });
 
             modelBuilder.Entity<Models.RecipeProduct>()
              .HasKey(rp => new { rp.RecipeId, rp.ProductId });

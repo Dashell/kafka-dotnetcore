@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 namespace Product.API.Kafka
 {
     public interface IKafkaProducer
     {
-        Task SendMessage(string message);
+        Task SendDeleteProductMessage(int productId);
     }
 }

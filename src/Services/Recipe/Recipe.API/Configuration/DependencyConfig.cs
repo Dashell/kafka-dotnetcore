@@ -1,6 +1,6 @@
-﻿using Recipe.API.Infrastructure;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Recipe.API.Infrastructure;
 
 namespace Recipe.API.Configuration
 {

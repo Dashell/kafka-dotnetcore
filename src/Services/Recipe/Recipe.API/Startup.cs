@@ -1,14 +1,12 @@
 using AutoMapper;
-using Recipe.API.Configuration;
-using Recipe.API.Infrastructure.Filters;
-using Recipe.API.Infrastructure.Migrations;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using Recipe.API.Configuration;
+using Recipe.API.Infrastructure.Filters;
+using Recipe.API.Infrastructure.Migrations;
 using System.Reflection;
-using System.Threading.Tasks;
-using Recipe.API.Kafka;
 
 namespace Recipe.API
 {
@@ -42,7 +40,7 @@ namespace Recipe.API
             services.AddHealthChecks();
             services.AddHostedService<MigratorHostedService>();
             services.AddHttpContextAccessor();
-            
+
         }
 
         public void Configure(IApplicationBuilder app, IOptions<AppSettings> appSettings, IMapper mapper)

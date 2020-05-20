@@ -1,37 +1,38 @@
-﻿using System;
-using System.Threading.Tasks;
-using Confluent.Kafka;
+﻿using Confluent.Kafka;
 using Microsoft.Extensions.Options;
 using Product.API.Configuration;
+using System;
+using System.Threading.Tasks;
 
 namespace Product.API.Kafka
 {
     public class KafkaProducer : IKafkaProducer
     {
         private readonly AppSettings appSettings;
+        private const string TOPIC_DELETE_PRODUCT = "delete-product";//TODO mettre dans un service common
 
         public KafkaProducer(IOptions<AppSettings> appSettings)
         {
             this.appSettings = appSettings.Value;
         }
 
-        public async Task SendMessage(string message)
+        public async Task SendDeleteProductMessage(int productId)
         {
-            var config = new ProducerConfig { BootstrapServers = "kafka1:29092,kafka2:29093,kafka3:29094" };
+            ProducerConfig config = new ProducerConfig { BootstrapServers = appSettings.BrokersHosts };
 
-            using var p = new ProducerBuilder<Null, string>(config).Build();
+            using IProducer<Null, string> producer = new ProducerBuilder<Null, string>(config).Build();
             try
             {
-                var dr = await p.ProduceAsync("delete-product", new Message<Null, string> { Value = message });
-                Console.WriteLine($"Delivered '{dr.Value}' to '{dr.TopicPartitionOffset}'");
+                DeliveryResult<Null, string> deliveryResult = await producer.ProduceAsync(TOPIC_DELETE_PRODUCT, new Message<Null, string> { Value = productId.ToString() });
+                Console.WriteLine($"Delivered '{deliveryResult.Value}' to '{deliveryResult.TopicPartitionOffset}'");
             }
-            catch (ProduceException<Null, string> e)
+            catch (ProduceException<Null, string> exception)
             {
-                Console.WriteLine($"Delivery failed: {e.Error.Reason}");
+                Console.WriteLine($"Delivery failed: {exception.Error.Reason}");
             }
-            catch (Exception e)
+            catch (Exception exception)
             {
-                Console.WriteLine($"Delivery failed: {e.Message}");
+                Console.WriteLine($"Delivery failed: {exception.Message}");
             }
         }
     }

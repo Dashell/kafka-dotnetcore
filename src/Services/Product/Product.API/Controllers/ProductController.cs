@@ -1,9 +1,5 @@
-﻿using Confluent.Kafka;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Product.API.Kafka;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Product.API.Controllers
 {
@@ -17,10 +13,13 @@ namespace Product.API.Controllers
             this.iKafkaProducer = iKafkaProducer;
         }
 
-        [HttpPost]
-        public NoContentResult Post(string message)
+        [HttpDelete("{productId}")]
+        public NoContentResult Delete(int productId)
         {
-            iKafkaProducer.SendMessage(message);
+            //TODO => Call UseCase For Remove Product in Database
+
+            iKafkaProducer.SendMessage(productId);
+
             return NoContent();
         }
     }
