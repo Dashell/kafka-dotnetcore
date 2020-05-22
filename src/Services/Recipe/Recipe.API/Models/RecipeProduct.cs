@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Recipe.API.Models
+﻿namespace Recipe.API.Models
 {
     public class RecipeProduct
     {

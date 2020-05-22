@@ -1,8 +1,8 @@
-﻿using Confluent.Kafka;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Product.API.Kafka;
-using System;
-using System.Threading;
+using Product.API.UseCases.Interfcaces;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Product.API.Controllers
@@ -11,17 +11,26 @@ namespace Product.API.Controllers
     [Route("v1/[controller]")]
     public class ProductController : ControllerBase
     {
-        private readonly IKafkaProducer iKafkaProducer;
-        public ProductController(IKafkaProducer iKafkaProducer)
+        private readonly IProductFetcher productFetcher;
+        private readonly IProductRemover productRemover;
+        public ProductController(IProductFetcher productFetcher, IProductRemover productRemover)
         {
-            this.iKafkaProducer = iKafkaProducer;
+            this.productFetcher = productFetcher;
+            this.productRemover = productRemover;
         }
 
-        [HttpPost]
-        public NoContentResult Post(string message)
+        [HttpDelete("{productId}")]
+        public async Task<NoContentResult> Delete(int productId)
         {
-            iKafkaProducer.SendMessage(message);
+            await productRemover.Execute(productId);
+
             return NoContent();
+        }
+
+        [HttpGet]
+        public async Task<IEnumerable<dynamic>> Get()
+        {
+            return (await productFetcher.Execute()).Select(product => new { product.Id, product.Name });
         }
     }
 }

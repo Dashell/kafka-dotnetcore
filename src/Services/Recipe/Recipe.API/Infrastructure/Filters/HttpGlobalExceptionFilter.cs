@@ -1,21 +1,19 @@
-using Recipe.API.Configuration;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Recipe.API.Configuration;
 using System.Net;
 
 namespace Recipe.API.Infrastructure.Filters
 {
     public class HttpGlobalExceptionFilter : IExceptionFilter
     {
-        private readonly AppSettings appSettings;
         private readonly ILogger<HttpGlobalExceptionFilter> iLogger;
 
-        public HttpGlobalExceptionFilter(IOptions<AppSettings> appSettings, ILogger<HttpGlobalExceptionFilter> iLogger)
+        public HttpGlobalExceptionFilter(ILogger<HttpGlobalExceptionFilter> iLogger)
         {
-            this.appSettings = appSettings.Value;
             this.iLogger = iLogger;
         }
 

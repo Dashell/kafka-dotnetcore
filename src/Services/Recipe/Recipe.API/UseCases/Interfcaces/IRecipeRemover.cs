@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Product.API.Kafka
+namespace Recipe.API.UseCases.Interfcaces
 {
-    public interface IKafkaProducer
+    public interface IRecipeRemover
     {
-        Task SendMessage(string message);
+        Task Execute(int productId);
     }
 }

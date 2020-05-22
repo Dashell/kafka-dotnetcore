@@ -1,11 +1,11 @@
 using AutoMapper;
-using Product.API.Configuration;
-using Product.API.Infrastructure.Filters;
-using Product.API.Infrastructure.Migrations;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using Product.API.Configuration;
+using Product.API.Infrastructure.Filters;
+using Product.API.Infrastructure.Migrations;
 using System.Reflection;
 
 namespace Product.API
@@ -42,13 +42,13 @@ namespace Product.API
             services.AddHttpContextAccessor();
         }
 
-        public void Configure(IApplicationBuilder app, IOptions<AppSettings> appSettings, IMapper mapper)
+        public void Configure(IApplicationBuilder app, IMapper mapper)
         {
             mapper.ConfigurationProvider.AssertConfigurationIsValid();
 
             app.UseDeveloperExceptionPage();
             app.UseSwaggerConfig("Product.API", "", "http");
-            
+
 
             app.UseRouting();
             app.UseCors(builder => builder.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
