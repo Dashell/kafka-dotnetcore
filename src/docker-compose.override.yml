@@ -1,0 +1,38 @@
+version: '3.7'
+
+services:
+  pocsqldata:
+      restart: always
+      environment:
+          - POSTGRES_USER=postgres
+          - POSTGRES_PASSWORD=docker
+      ports:
+        - "5432:5432"
+
+  product-api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "50001:80"
+
+  recipe-api-1:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - appSettings__consumerGroup=group1
+    ports:
+      - "50002:80"
+
+  recipe-api-2:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - appSettings__consumerGroup=group1
+    ports:
+      - "50003:80"
+
+  recipe-api-3:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - appSettings__consumerGroup=group2
+    ports:
+      - "50004:80"
+
