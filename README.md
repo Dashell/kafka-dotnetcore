@@ -18,14 +18,6 @@
  - A five seconds sleep are here to show the asynchronous principle of
    Kafka.
    
-```mermaid
-graph LR
-A[Front] -- Delete Product --> B
-B[Product.API] -. Producer.-> C((Brokers))
-B --> D(DataBase Product)
-C -. Consumer .-> E[Recipe.API]
-E --> F(Database Recipe)
-```
 
 ## Other Sources
 
